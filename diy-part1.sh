@@ -10,8 +10,15 @@
 # Description: OpenWrt DIY script part 1 (Before Update feeds)
 #
 
+# 添加SSRP+
+echo "src-git helloworld https://github.com/fw876/helloworld.git" >> feeds.conf.default
+
 # Uncomment a feed source
 #sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
+
+# 添加OpenClash
+git clone https://github.com/vernesong/OpenClash.git
+cp -rf OpenClash/luci-app-openclash package/luci-app-openclash
 
 # Add a feed source
 echo 'src-git kenzo https://github.com/kenzok8/openwrt-packages' >>feeds.conf.default
@@ -19,3 +26,9 @@ echo 'src-git kenzo https://github.com/kenzok8/openwrt-packages' >>feeds.conf.de
 #echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
 git clone https://github.com/CHN-beta/rkp-ipid package/rkp-ipid
 git clone https://github.com/Zxilly/UA2F package/UA2F
+
+# 更新queue
+git clone https://github.com/openwrt/packages
+rm -rf package/libs/libnetfilter-queue
+# 本地用cp命令可以方便git pull
+cp -rf packages/libs/libnetfilter-queue package/libs/
